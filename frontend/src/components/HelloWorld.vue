@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import {reactive} from 'vue'
-import {Greet} from '../../wailsjs/go/main/App'
+import { reactive } from 'vue'
+import { Greet } from '../../wailsjs/go/main/App'
+import { UserLogin, UserRegist } from '../../wailsjs/go/util/User'
+
 
 const data = reactive({
   name: "",
@@ -12,6 +14,24 @@ function greet() {
     data.resultText = result
   })
 }
+function login() {
+  UserLogin(data.name).then(result => {
+
+  })
+}
+
+function Regist() {
+  let userData = {
+    "userAccount": "Account",
+    "userPassword": "Password-hashed",
+    "userMail": "userEmail",
+    "authSecret": "hashed by Account,to verify OTP"
+  }
+
+  UserRegist(JSON.stringify(userData)).then(result => {
+
+  })
+}
 
 </script>
 
@@ -19,8 +39,8 @@ function greet() {
   <main>
     <div id="result" class="result">{{ data.resultText }}</div>
     <div id="input" class="input-box">
-      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text"/>
-      <button class="btn" @click="greet">Greet</button>
+      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text" />
+      <button class="btn" @click="Regist">Greet</button>
     </div>
   </main>
 </template>

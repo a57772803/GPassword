@@ -1,0 +1,6 @@
+{"userAccount":"Account",
+"userPassword":"Password-hashed",
+"userMail":"userEmail",
+"AuthSecret":"hashed by Account,to verify OTP",
+"ActiveAuth":"check Auth is Active"
+}
