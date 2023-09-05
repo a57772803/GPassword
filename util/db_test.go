@@ -7,7 +7,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
-func TestDbConnect(t *testing.T) {
+func TestGetDB(t *testing.T) {
 	db, err := leveldb.OpenFile("./tizi365.db", nil)
 
 	fmt.Println(db)

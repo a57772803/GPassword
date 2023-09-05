@@ -20,7 +20,7 @@ func GetUser() *User {
 	return &User{}
 }
 func (*User) UserLogin(accountName string) {
-	fmt.Print("hello", accountName)
+	fmt.Print("hello ,", accountName)
 }
 
 func (*User) UserRegist(UserData string) {
@@ -35,9 +35,9 @@ func (*User) UserRegist(UserData string) {
 	db.Put([]byte("UserAccount"), []byte(userInfo.UserAccount), nil)
 	db.Put([]byte("UserPassword"), []byte(userInfo.UserPassword), nil)
 	db.Put([]byte("UserMail"), []byte(userInfo.UserMail), nil)
-	db.Put([]byte("AuthSecret"), []byte(userInfo.UserAccount), nil)
+	db.Put([]byte("AuthSecret"), []byte(userInfo.AuthSecret), nil)
 
 	fmt.Println(err)
-	fmt.Println(userInfo.AuthSecret, "AuthSecret")
 	fmt.Println(userInfo)
+	db.Close()
 }
