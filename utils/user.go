@@ -1,10 +1,12 @@
-package util
+package utils
 
 import (
-	util "GPassword/util/encrypt"
+	utils "GPassword/utils/encrypt"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"log"
+	"path/filepath"
 )
 
 type User struct {
@@ -80,23 +82,29 @@ func (user *User) UserRegist(UserData string) {
 	db.Close()
 }
 
+// 生成2FA金鑰並加密存入DB
 func (user *User) BindAuthSecret(AccountName string) error {
 
-	path := fmt.Sprint(GetAppDataPath() + "/" + AccountName)
+	path := filepath.Join(GetAppDataPath(), AccountName) //new folder by different account
 
-	db, _ := GetDB(path)
+	db, err := GetDB(path)
 
 	RandomSecret := generateTOTPSecret()
 
 	//TODO HASH "RandomSecret" BY AES
-	Md5AccountName := (&util.Encrypt{}).Md5(AccountName) //key=> AES(key,Md5(accountName))
-	AuthSecret, err := util.AesEncrypt([]byte(Md5AccountName), []byte(RandomSecret))
+	var encrypt *utils.Encrypt
+	Md5AccountName := encrypt.Md5(AccountName) //key=> AES(key,Md5(accountName))
+	AuthSecret, err := encrypt.AesEncrypt([]byte(Md5AccountName), []byte(RandomSecret))
+
+	base64Str := base64.StdEncoding.EncodeToString(AuthSecret)
 	log.Print(err)
 
-	err2 := db.Put([]byte("AuthSecret"), AuthSecret, nil)
+	err2 := db.Put([]byte("AuthSecret"), []byte(base64Str), nil)
 
 	log.Print(err2)
 
+	err3 := db.Put([]byte("ActiveAuth"), []byte("true"), nil)
+	log.Print(err3)
 	db.Close()
 
 	return nil

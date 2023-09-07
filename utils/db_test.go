@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestGetDB(t *testing.T) {
-	db, err := leveldb.OpenFile("./tizi365.db", nil)
+	db, err := leveldb.OpenFile("testdb", nil)
 
 	fmt.Println(db)
 	fmt.Print(err)

@@ -1,9 +1,9 @@
-package util
+package utils
 
 import "github.com/syndtr/goleveldb/leveldb"
 
 func GetDB(path string) (*leveldb.DB, error) {
-	db, err := leveldb.OpenFile("test.db", nil)
+	db, err := leveldb.OpenFile(path, nil)
 
 	if err != nil {
 		return nil, err

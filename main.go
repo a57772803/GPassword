@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GPassword/util"
+	"GPassword/utils"
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
@@ -15,7 +15,7 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-	user := util.GetUser()
+	user := utils.GetUser()
 
 	// Create application with options
 	err := wails.Run(&options.App{

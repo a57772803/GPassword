@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"crypto/aes"
@@ -8,7 +8,7 @@ import (
 
 // https://bruinsslot.jp/post/golang-crypto/
 
-func AesEncrypt(key, data []byte) ([]byte, error) {
+func (e *Encrypt) AesEncrypt(key, data []byte) ([]byte, error) {
 	blockCipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -29,7 +29,7 @@ func AesEncrypt(key, data []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-func AesDecrypt(key, data []byte) ([]byte, error) {
+func (e *Encrypt) AesDecrypt(key, data []byte) ([]byte, error) {
 	blockCipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
