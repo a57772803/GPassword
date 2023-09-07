@@ -27,3 +27,10 @@ func TestConfigWrite(t *testing.T) {
 	err := folders[0].WriteFile("setting.json", []byte(data))
 	log.Print(err)
 }
+
+func TestPathConfig(t *testing.T) {
+	configDirs := configdir.New("vendorname", "applicationname")
+	configDirs.LocalPath, _ = filepath.Abs(".")
+	folders := configDirs.QueryFolders(configdir.Global)
+	log.Print(folders[0].Path)
+}

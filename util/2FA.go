@@ -4,18 +4,25 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/skip2/go-qrcode"
 	"github.com/xlzd/gotp"
 )
 
-func generateTOTPWithSecret(randomSecret string, userID string, userMail string) {
+// https://medium.com/@kittipat_1413/implementing-two-factor-authentication-2fa-with-totp-in-golang-1a3fd0dd7662
+
+func generateTOTPSecret() string {
+	randomSecret := gotp.RandomSecret(16)
+	return randomSecret
+}
+
+func generateTOTPWithSecret(randomSecret string, userID string, userMail string) string {
+
 	totp := gotp.NewDefaultTOTP(randomSecret)
 	fmt.Println("current one-time password is:", totp.Now())
 
 	uri := totp.ProvisioningUri(userMail, userID)
 	fmt.Println(uri)
 
-	qrcode.WriteFile(uri, qrcode.Medium, 256, "qr.png")
+	return uri
 }
 
 func testOTPVerify(randomSecret string) {
