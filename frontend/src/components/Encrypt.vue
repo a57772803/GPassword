@@ -1,44 +1,25 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { Greet } from '../../wailsjs/go/main/App'
-import {UserLogin,UserRegist} from '../../wailsjs/go/user/User'
+import {reactive} from 'vue'
+import {Md5} from '../../wailsjs/go/encrypt/Encrypt'
+
 const data = reactive({
-  name: "",
-  resultText: "Please enter your name below 👇",
+  Str: "aaa",
+  Md5Str: "Please enter your name below 👇",
 })
 
-function greet() {
-  Greet(data.name).then(result => {
-    data.resultText = result
+function md5() {
+  Md5(data.Str).then(result => {
+    data.Md5Str = result
   })
 }
-function login() {
-  UserLogin(data.name).then(result => {
-
-  })
-}
-
-function Regist() {
-  let userData = {
-    "userAccount": "Account",
-    "userPassword": "Password-hashed",
-    "userMail": "userEmail",
-    "authSecret": "hashed by Account,to verify OTP"
-  }
-
-  UserRegist(JSON.stringify(userData)).then(result => {
-
-  })
-}
-
 </script>
 
 <template>
   <main>
-    <div id="result" class="result">{{ data.resultText }}</div>
+    <div id="result" class="result">結果:{{ data.Md5Str }}</div>
     <div id="input" class="input-box">
-      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text" />
-      <button class="btn" @click="Regist">Greet</button>
+      <input id="name" v-model="data.Str" autocomplete="off" class="input" type="text"/>
+      <button class="btn" @click="md5">MD5</button>
     </div>
   </main>
 </template>
@@ -87,3 +68,4 @@ function Regist() {
   background-color: rgba(255, 255, 255, 1);
 }
 </style>
+
