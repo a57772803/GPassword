@@ -1,7 +1,10 @@
-package utils
+package user_test
 
 import (
-	utils "GPassword/utils/encrypt"
+	"GPassword/utils/appPath"
+	"GPassword/utils/db"
+	"GPassword/utils/encrypt"
+	"GPassword/utils/user"
 	"encoding/base64"
 	"log"
 	"path/filepath"
@@ -10,11 +13,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var user User
-
 func TestUserLogin(t *testing.T) {
 	accountName := "testAccount"
-	user.UserLogin(accountName)
+	user.GetUser().UserLogin(accountName)
 }
 func TestRegist(t *testing.T) {
 
@@ -24,8 +25,8 @@ func TestRegist(t *testing.T) {
 "AuthSecret":"hashed by Account,to verify OTP",
 "ActiveAuth":"check Auth is Active"
 }`
-	user.UserRegist(UserData)
-	db, err := GetDB(GetAppDataPath())
+	user.GetUser().UserRegist(UserData)
+	db, err := db.GetDB(appPath.GetAppDataPath())
 	if err != nil {
 		log.Fatal(err)
 
@@ -44,7 +45,7 @@ func TestRegist(t *testing.T) {
 
 func TestBindAuthSecret(t *testing.T) {
 	AccountName := "testUser"
-	err := user.BindAuthSecret(AccountName)
+	err := user.GetUser().BindAuthSecret(AccountName)
 
 	assert.Nil(t, err)
 }
@@ -52,18 +53,17 @@ func TestFetchAuthSecret(t *testing.T) {
 
 	AccountName := "testUser"
 
-	path := filepath.Join(GetAppDataPath(), AccountName) //new folder by different account
+	path := filepath.Join(appPath.GetAppDataPath(), AccountName) //new folder by different account
 
-	var encrypt *utils.Encrypt
-	Md5AccountName := encrypt.Md5(AccountName)
-	db, err := GetDB(path)
+	Md5AccountName := encrypt.NewEncrypt().Md5(AccountName)
+	db, err := db.GetDB(path)
 
 	AuthSecret, err := db.Get([]byte("AuthSecret"), nil)
 	log.Print(err)
 
 	ByteEncryptSecret, _ := base64.StdEncoding.DecodeString(string(AuthSecret))
 
-	OrigialSecret, _ := encrypt.AesDecrypt([]byte(Md5AccountName), ByteEncryptSecret)
+	OrigialSecret, _ := encrypt.NewEncrypt().AesDecrypt([]byte(Md5AccountName), ByteEncryptSecret)
 
 	log.Println("original AuthKey is:", string(OrigialSecret))
 

@@ -1,7 +1,8 @@
 package main
 
 import (
-	"GPassword/utils"
+	"GPassword/utils/encrypt"
+	"GPassword/utils/user"
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
@@ -15,7 +16,8 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-	user := utils.GetUser()
+	user := user.GetUser()
+	encrypt := encrypt.NewEncrypt()
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -30,6 +32,7 @@ func main() {
 		Bind: []interface{}{
 			app,
 			user,
+			encrypt,
 		},
 	})
 

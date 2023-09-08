@@ -1,7 +1,10 @@
-package utils
+package user
 
 import (
-	utils "GPassword/utils/encrypt"
+	"GPassword/utils/appPath"
+	"GPassword/utils/auth"
+	"GPassword/utils/db"
+	"GPassword/utils/encrypt"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -23,10 +26,10 @@ func GetUser() *User {
 	return &User{}
 }
 func (user *User) UserLogin(accountName string) {
-	AppPath := fmt.Sprint(GetAppDataPath(), "/", accountName)
+	AppPath := fmt.Sprint(appPath.GetAppDataPath(), "/", accountName)
 	log.Print("hello ,", accountName)
 	log.Println(AppPath)
-	db, _ := GetDB(AppPath)
+	db, _ := db.GetDB(AppPath)
 	res, _ := db.Get([]byte(accountName), nil)
 	if res == nil {
 		log.Print("用戶不存在")
@@ -40,9 +43,9 @@ func (user *User) UserLogin(accountName string) {
 // check if A user is Registed
 func (user *User) IsRegisted(AccountName string) bool {
 
-	path := fmt.Sprint(GetAppDataPath() + "/" + AccountName)
+	path := fmt.Sprint(appPath.GetAppDataPath() + "/" + AccountName)
 
-	db, _ := GetDB(path)
+	db, _ := db.GetDB(path)
 
 	res, err := db.Get([]byte(AccountName), nil)
 	log.Print(err)
@@ -64,9 +67,9 @@ func (user *User) UserRegist(UserData string) {
 		log.Fatal(err)
 
 	}
-	path := fmt.Sprint(GetAppDataPath() + "/" + user.accountName)
+	path := fmt.Sprint(appPath.GetAppDataPath() + "/" + user.accountName)
 
-	db, _ := GetDB(path)
+	db, _ := db.GetDB(path)
 	log.Print(err)
 	if !user.IsRegisted(userInfo.UserAccount) {
 		//TODO raise UserAlreadyExist
@@ -85,14 +88,14 @@ func (user *User) UserRegist(UserData string) {
 // 生成2FA金鑰並加密存入DB
 func (user *User) BindAuthSecret(AccountName string) error {
 
-	path := filepath.Join(GetAppDataPath(), AccountName) //new folder by different account
+	path := filepath.Join(appPath.GetAppDataPath(), AccountName) //new folder by different account
 
-	db, err := GetDB(path)
+	db, err := db.GetDB(path)
 
-	RandomSecret := generateTOTPSecret()
+	RandomSecret := auth.GenerateTOTPSecret()
 
 	//TODO HASH "RandomSecret" BY AES
-	var encrypt *utils.Encrypt
+	var encrypt encrypt.Encrypt
 	Md5AccountName := encrypt.Md5(AccountName) //key=> AES(key,Md5(accountName))
 	AuthSecret, err := encrypt.AesEncrypt([]byte(Md5AccountName), []byte(RandomSecret))
 

@@ -1,4 +1,4 @@
-package utils
+package encrypt
 
 type Encrypt struct {
 }

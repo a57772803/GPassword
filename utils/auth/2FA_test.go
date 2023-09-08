@@ -1,6 +1,7 @@
-package utils
+package auth_test
 
 import (
+	"GPassword/utils/auth"
 	"fmt"
 	"testing"
 
@@ -10,6 +11,6 @@ import (
 func TestGotp(t *testing.T) {
 	randomSecret := gotp.RandomSecret(16)
 	fmt.Println("Random secret:", randomSecret)
-	generateTOTPWithSecret(randomSecret, "", "")
-	testOTPVerify(randomSecret)
+	auth.GenerateTOTPWithSecret(randomSecret, "", "")
+	auth.TestOTPVerify(randomSecret)
 }

@@ -1,4 +1,4 @@
-package utils
+package auth
 
 import (
 	"fmt"
@@ -9,12 +9,12 @@ import (
 
 // https://medium.com/@kittipat_1413/implementing-two-factor-authentication-2fa-with-totp-in-golang-1a3fd0dd7662
 
-func generateTOTPSecret() string {
+func GenerateTOTPSecret() string {
 	randomSecret := gotp.RandomSecret(16)
 	return randomSecret
 }
 
-func generateTOTPWithSecret(randomSecret string, userID string, userMail string) string {
+func GenerateTOTPWithSecret(randomSecret string, userID string, userMail string) string {
 
 	totp := gotp.NewDefaultTOTP(randomSecret)
 	fmt.Println("current one-time password is:", totp.Now())
@@ -25,7 +25,7 @@ func generateTOTPWithSecret(randomSecret string, userID string, userMail string)
 	return uri
 }
 
-func testOTPVerify(randomSecret string) {
+func TestOTPVerify(randomSecret string) {
 	totp := gotp.NewDefaultTOTP(randomSecret)
 	otpValue := totp.Now()
 	fmt.Println("current one-time password is:", otpValue)
