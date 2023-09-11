@@ -1,14 +1,10 @@
 import { createRouter, createWebHashHistory,RouterOptions,Router, RouteRecordRaw } from 'vue-router'
 import HelloWorld from '../components/HelloWorld.vue'
-import  Encrypt from '../components/Encrypt.vue'
-
-const Home = { template: '<div>Home</div>' }
-const About = { template: '<div>About</div>' }
+import Login from '../components/Login.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', component: HelloWorld },
-    { path: '/encrypt', component: Encrypt },
-  { path: '/about', component: About },
+    { path: '/login', component: Login },
 ]
 const options: RouterOptions = {
  history: createWebHashHistory(),

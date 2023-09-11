@@ -1,8 +1,14 @@
 <script lang="ts" setup>
+import Sidebar from "./components/Sidebar.vue";
 </script>
 
+
+
 <template>
-  <router-view></router-view>
+  <div class="flex-1 flex">
+    <Sidebar></Sidebar>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style>

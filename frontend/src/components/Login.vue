@@ -3,25 +3,29 @@
 
 
 <template>
-<div class="flex items-center justify-center h-screen">
-  <!-- Login Container -->
-  <div class="min-w-fit flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] ">
-    <div class="flex justify-center mb-8">
-      <img class="w-24" src="../assets/images/lock-svgrepo-com.svg" alt="" />
-      <p  class="text-sky-400">VPassword</p>
-    </div>
-    <div class="flex flex-col text-sm rounded-md">
-      <input class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Username or Email id" />
-      <input class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500" type="password" placeholder="Password" />
-    </div>
-    <button class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Sign in</button>
-    <div class="flex justify-between mt-5 text-sm text-gray-600">
-      <a href="#/signup">Forgot password?</a>
+  <div class="flex items-center justify-center h-screen px-4 pt-6 mx-auto">
+    <!-- Login Container -->
+    <div class="min-w-fit flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] ">
+      <div class="flex justify-center mb-8">
+        <img class="w-24" src="../assets/images/lock-svgrepo-com.svg" alt="" />
+        <p class="text-sky-400">VPassword</p>
+      </div>
+      <div class="flex flex-col text-sm rounded-md">
+        <input class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 "
+          type="text" placeholder="Username or Email id" />
+        <input class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500"
+          type="password" placeholder="Password" />
+      </div>
+      <button
+        class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300"
+        type="submit">Sign in</button>
+      <div class="flex justify-between mt-5 text-sm text-gray-600">
+        <a href="#/signup">Forgot password?</a>
 
-      <router-link to="/signup">Sign up</router-link>
+        <router-link to="/signup">Sign up</router-link>
 
-    </div>
-    <!-- <div class="flex justify-center mt-5 text-sm">
+      </div>
+      <!-- <div class="flex justify-center mt-5 text-sm">
       <p class="text-gray-400">or you can sign with</p>
     </div>
     <div class="flex justify-center gap-3 mt-5 ">
@@ -30,12 +34,12 @@
       <img class="duration-300 scale-105 cursor-pointer h-7 grayscale hover:grayscale-0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAFEklEQVRoge2ZW2gcVRjH/2c22SQ1aZLNRXNraFATvKFs0QdfTPTFiKCIQUwFwZQYkqIY8cELrKLFF2+0G4yVgpBgm4q0oO2DJvpgVUICKohtUFuSzcZoLrK7uezOzPn7kLRddmZ2ZjJJfGg+WHZ2zjnf/P7nfOc7c84CO7Zj17aJTfEyRF/TSvxuAM0SCIJsAlFFsJAECCQoGQVwgeQ4wZFL04FRhIT0+mhPAm77dLlO12Q3yf0kawCAJEgAWPte+xAmZRFKDug5Ijx9oCyyrQJuHIpX+JN4k8DTJPwWgNng0+4jBfKY7lNfi3ZWz225gFsHEk9KicMQDGQHdASfXmeeFD3RnorjWyIg2M/c1cJEn5SiwwjiGf5qHaB/JrfyIDqFumkCgv3ctXLd0mckHtxS+Kvtz/jy5ePRzuplOzbFAXzuNsMDQKu2itMI/er3LGC1MNG3zfBrZVI8UF5S+oEdX9YQumUw0U6JAS/wCoiWej/urc5FfbGCkjwFKZ1QdSKWIn6MpvDxTyuW7SX5xEJvzQnXApo+iZUJRTkPsHyj8HdW+vBecyH2FvssO+lcJIXHPl+08E0AWEhRNMZfNE+xliGkKOKQF/i7Kn0Yenh3Vvh0yxJ2gRzK1y05zW7eMbBcu75IbQjeJ4jD9xfB73OWpR3MmY7St6N7HAtQKXvoYYVtbchDbZFtfkgTkBUeJP1S0bvM2uYY7oSokIl2L9mmuS7XFHQypqN3OI5f/lavkKuSdvBrzyCfwhBfRZvQswpo2hu/h0TtRuFJ4PYKY78AwAvDcXw3lbRtb7FC1+y+GAnGgNF0n2bj3OwFniTKC4xu/1qSOLdReF7+LVsy/ZoJ2Od1kSryGyfvZEwHPcADACWCtgIkebMXeJJQTJJPPCm9wRMgZGOmX0OwkqjyAr9+aTBJR9kmax1SVGX6NQmh9W3ghuEtFMArPACwKNOj2Qi4cvzD/oAh5s1C6L76PEw8e73h/snfVvDS14tO4E1H15jviATJgBN4ACjOE6aTNtNyFaAk3zjg0bjmGJ5kPLO92SSecQpPsy5xaRPzmlN4CGDGVgCICa8T1o39vqA6ggcACVywFUBwzFW28ACvSeDPRc0R/Pr1WKYP4yQGR4zA1pP6ua9iyLncDetlRx8qMWw0fp5V8f5o/EodAFjViKQmncKDCkZsBVyaDozuqVqYAllnB08CZ/9YNZR9xBKIDAWzSzpOnV92M2EzO29SlQ3jmbzGORASEpKDTuCtyqzMAzwADJodRZq+tOs5Ikwi5eWVejPhCSZTqhY282sqYPpAWQTksc2CB4x1HMOTkMRRvNU47VgAANDvf4XknFv47CHkHp7EvC50d3tiAIh0FC+Q4qBbeLvFzSU8CHYh1Gh56Jt14xrtqThOoP9/hA/rb9x0MptP2533TGVlN8FTTuEtRbiEB/ClrkSet+OzPzpoE7ovT7aDPOPi4Wb8zuHJLzRlVxtCzZp3AQCindXLswU3PELBD+3h3Wei9PYEw5ov8ihC9ifTgNnrtJV1CnUO6Aq8M/2tAhyRRPlGFrIs8P8Q7LaL+Uxzfvq0bgu9NSeSSTaR7AOQdLMWWC1SEjiiKckmt/CAmxFIs/jLtfMAusvenTqkaegB2E6iziX8FIABVdXDVouUE9ucv1lDVHYXRPaRsoUSwe+fqWoN5Iv80gKfIgTw74qUwxeXFztOz31DcowCI6psGN+Mv1l3bMeudfsPP8EkRZOLDr8AAAAASUVORK5CYII=">
       <a class="text-center duration-300 scale-105 bg-gray-400 cursor-pointer h-7 w-7 rounded-3xl grayscale hover:grayscale-0 " href="">...</a>
     </div> -->
-    <div class="flex mt-5 text-sm text-center text-gray-400">
-      <p>
-        This site is protected by reCAPTCHA and the Google <br />
-        <a class="underline" href="">Privacy Policy</a>  and <a class="underline" href="">Terms of Service</a>  apply.
-      </p>
+      <div class="flex mt-5 text-sm text-center text-gray-400">
+        <p>
+          This site is protected by reCAPTCHA and the Google <br />
+          <a class="underline" href="">Privacy Policy</a> and <a class="underline" href="">Terms of Service</a> apply.
+        </p>
+      </div>
     </div>
   </div>
-</div>
 </template>

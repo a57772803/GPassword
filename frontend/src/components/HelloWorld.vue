@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { Greet } from '../../wailsjs/go/main/App'
-import {UserLogin,UserRegist} from '../../wailsjs/go/user/User'
+import { UserLogin, UserRegist } from '../../wailsjs/go/user/User'
 const data = reactive({
   name: "",
   resultText: "Please enter your name below 👇",
